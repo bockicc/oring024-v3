@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="O kompaniji ORING 024 doo Subotica. Tradicija duga preko 70 godina u izgradnji montažnih kuća. Zastupnik firme TMK Zavidovići." />
+  <title>ORING 024 – O Nama</title>
+
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/layout/header.css" />
+  <link rel="stylesheet" href="css/layout/footer.css" />
+
+  <style>
+    /* ── Page-specific styles for o-nama.html ── */
+
+    .about-hero {
+      padding-top: 140px;
+      padding-bottom: 80px;
+      background: var(--gradient-navy);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-amber);
+    }
+
+    /* Decorative circle */
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      border: 60px solid rgba(212,134,10,.07);
+      pointer-events: none;
+    }
+
+    .about-hero__inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(var(--space-12), 6vw, var(--space-20));
+      align-items: center;
+    }
+
+     @media (max-width: 768px) {
+       .about-hero__inner { grid-template-columns: 1fr; }
+       .about-hero__badges {
+         flex-direction: column;
+         align-items: stretch;
+         gap: 1rem;
+       }
+     }
+
+    .about-hero__text .section-label {
+      display: inline-block;
+      margin-bottom: var(--space-4);
+    }
+
+    .about-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--fs-2xl), 5vw, var(--fs-4xl));
+      font-weight: var(--fw-bold);
+      color: var(--color-white);
+      line-height: var(--lh-snug);
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-6);
+    }
+
+    .about-hero__title em {
+      font-style: normal;
+      color: var(--color-amber-light);
+    }
+
+    .about-hero__desc {
+      font-size: var(--fs-md);
+      color: rgba(255,255,255,0.75);
+      line-height: var(--lh-loose);
+      margin-bottom: var(--space-8);
+    }
+
+    .about-hero__badges {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    .hero-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: var(--space-4) var(--space-6);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(4px);
+      text-align: center;
+    }
+
+    .hero-badge strong {
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-bold);
+      color: var(--color-amber-light);
+      line-height: 1;
+    }
+
+    .hero-badge span {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .about-hero__image {
+      position: relative;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .about-hero__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-hero__image-badge {
+      position: absolute;
+      bottom: var(--space-5);
+      left: var(--space-5);
+      background: var(--gradient-amber);
+      color: var(--color-white);
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-full);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-bold);
+      box-shadow: var(--shadow-amber);
+    }
+
+/* Values section */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    @media (max-width: 768px) {
+      .values-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .value-card {
+        text-align: center;
+      }
+    }
+
+    .value-card {
+      background: var(--color-white);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      transition: var(--transition-slow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .value-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-amber);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .value-card:hover::after { transform: scaleX(1); }
+    .value-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl);
+      border-color: transparent;
+    }
+
+    .value-card__number {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: var(--fw-black);
+      color: rgb(255, 229, 180);
+      line-height: 1;
+      margin-bottom: var(--space-4);
+      letter-spacing: -0.04em;
+    }
+
+    .value-card__title {
+      font-size: var(--fs-lg);
+      font-weight: var(--fw-bold);
+      color: var(--color-navy);
+      margin-bottom: var(--space-3);
+    }
+
+    .value-card__desc {
+      font-size: var(--fs-sm);
+      color: var(--color-gray-500);
+      line-height: var(--lh-loose);
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: var(--space-12);
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--color-amber), var(--color-navy));
+      border-radius: var(--radius-full);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: var(--space-10);
+    }
+
+    .timeline-item:last-child { padding-bottom: 0; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: calc(-1 * var(--space-12) + 12px);
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--gradient-amber);
+      box-shadow: 0 0 0 4px var(--color-amber-pale);
+      border: 3px solid var(--color-white);
+    }
+
+    .timeline-item__year {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-bold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-amber);
+      margin-bottom: var(--space-2);
+    }
+
+    .timeline-item__title {
+      font-size: var(--fs-lg);
+      font-weight: var(--fw-bold);
+      color: var(--color-navy);
+      margin-bottom: var(--space-2);
+    }
+
+    .timeline-item__desc {
+      font-size: var(--fs-sm);
+      color: var(--color-gray-500);
+      line-height: var(--lh-loose);
+    }
+
+    /* Partnership section */
+    .partnership {
+      background: var(--color-navy);
+      color: var(--color-white);
+    }
+
+    .partnership__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(var(--space-12), 6vw, var(--space-20));
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .partnership__grid { grid-template-columns: 1fr; }
+    }
+
+    .partnership__label {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-bold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-amber-light);
+      display: inline-block;
+      margin-bottom: var(--space-4);
+    }
+
+    .partnership__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--fs-xl), 3.5vw, var(--fs-3xl));
+      font-weight: var(--fw-bold);
+      color: var(--color-white);
+      line-height: var(--lh-snug);
+      letter-spacing: -0.015em;
+      margin-bottom: var(--space-6);
+    }
+
+    .partnership__title em {
+      font-style: normal;
+      color: var(--color-amber-light);
+    }
+
+    .partnership__text {
+      font-size: var(--fs-base);
+      color: rgba(255,255,255,0.7);
+      line-height: var(--lh-loose);
+      margin-bottom: var(--space-8);
+    }
+
+    .partnership__features {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .partnership-feat {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+
+    .partnership-feat__icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-md);
+      background: rgba(212,134,10,.2);
+      border: 1px solid rgba(212,134,10,.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .partnership-feat__icon svg {
+      width: 18px;
+      height: 18px;
+      color: var(--color-amber-light);
+    }
+
+    .partnership-feat__text strong {
+      display: block;
+      font-size: var(--fs-base);
+      font-weight: var(--fw-bold);
+      color: var(--color-white);
+      margin-bottom: 2px;
+    }
+
+    .partnership-feat__text span {
+      font-size: var(--fs-sm);
+      color: rgba(255,255,255,0.55);
+    }
+
+    .partnership__visual {
+      position: relative;
+    }
+
+    .partnership__card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      backdrop-filter: blur(8px);
+    }
+
+    .partnership__card-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--radius-lg);
+      background: var(--gradient-amber);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-5);
+      box-shadow: var(--shadow-amber);
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-black);
+      color: var(--color-white);
+    }
+
+    .partnership__card-title {
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-bold);
+      color: var(--color-white);
+      margin-bottom: var(--space-2);
+    }
+
+    .partnership__card-sub {
+      font-size: var(--fs-sm);
+      color: var(--color-amber-light);
+      font-weight: var(--fw-semi);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-6);
+    }
+
+    .partnership__stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+      padding-top: var(--space-6);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .p-stat {
+      text-align: center;
+    }
+
+    .p-stat strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-bold);
+      color: var(--color-amber-light);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+     .p-stat span {
+       font-size: var(--fs-xs);
+       color: rgba(255,255,255,0.4);
+       font-weight: var(--fw-medium);
+       text-transform: uppercase;
+       letter-spacing: 0.05em;
+     }
+     
+     @media (max-width: 768px) {
+       /* Timeline container - switch to column layout */
+       .section--alt .container > div[style*="display:grid"] {
+         display: flex !important;
+         flex-direction: column !important;
+         gap: clamp(var(--space-8), 6vw, var(--space-12)) !important;
+       }
+       
+       /* Make timeline items full width */
+       .timeline {
+         width: 100% !important;
+         padding-left: 0 !important;
+       }
+       
+       /* Adjust timeline line - move to left edge */
+       .timeline::before {
+         left: 0 !important;
+         width: 4px !important;
+       }
+       
+       /* Add padding to timeline items for better text spacing */
+       .timeline-item {
+         padding-inline: clamp(var(--space-4), 6vw, var(--space-8)) !important;
+       }
+       
+       /* Also adjust the text content side to take full width and add bottom margin */
+       .section--alt .container > div[style*="display:grid"] > :first-child {
+         width: 100% !important;
+         margin-bottom: clamp(var(--space-8), 6vw, var(--space-12)) !important;
+       }
+     }
+   </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Preskoči na sadržaj</a>
+
+  <!-- HEADER -->
+  <header class="site-header is-transparent" role="banner">
+    <div class="container">
+      <div class="header__inner">
+        <a class="header__logo" href="index.html" aria-label="ORING 024 – Početna">
+          <div class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="14" cy="14" r="11" stroke="currentColor" stroke-width="2.2"/>
+              <text x="14" y="19" text-anchor="middle" fill="currentColor" font-size="11" font-weight="900" font-family="Montserrat, sans-serif">O</text>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <span class="logo-text__primary">ORING 024</span>
+            <span class="logo-text__secondary">doo Subotica</span>
+          </div>
+        </a>
+
+        <nav class="header__nav" aria-label="Glavna navigacija">
+          <ul class="nav__list" role="list">
+            <li><a class="nav__link" href="index.html">Početna</a></li>
+            <li><a class="nav__link is-active" href="o-nama.html">O Nama</a></li>
+            <li><a class="nav__link" href="modeli.html">Modeli Kuća</a></li>
+            <li><a class="nav__link" href="kontakt.html">Kontakt</a></li>
+          </ul>
+        </nav>
+
+        <div class="header__actions">
+          <a class="btn btn--primary header__cta" href="kontakt.html">
+            Zatražite Ponudu
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+        <button class="mobile-toggle" aria-label="Otvori meni" aria-controls="mobile-nav" aria-expanded="false">
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-nav__overlay" aria-hidden="true"></div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobilna navigacija" aria-hidden="true">
+    <ul class="mobile-nav__list" role="list">
+      <li><a class="mobile-nav__link" href="index.html">Početna <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></li>
+      <li><a class="mobile-nav__link is-active" href="o-nama.html">O Nama <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></li>
+      <li><a class="mobile-nav__link" href="modeli.html">Modeli Kuća <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></li>
+      <li><a class="mobile-nav__link" href="kontakt.html">Kontakt <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></li>
+    </ul>
+    <div class="mobile-nav__cta">
+      <div class="mobile-nav__contact-info">
+        <p>Pozovite nas direktno</p>
+        <a href="tel:+381692424256">+381 69/11-242-56</a>
+      </div>
+      <a class="btn btn--primary btn--lg" href="kontakt.html" style="justify-content:center;">Zatražite Ponudu</a>
+    </div>
+  </nav>
+
+
+  <!-- MAIN -->
+  <main id="main-content">
+
+    <!-- About Hero -->
+    <section class="about-hero" aria-label="O kompaniji">
+      <div class="container">
+        <div class="about-hero__inner">
+          <div class="about-hero__text">
+            <span class="section-label">Ko smo mi</span>
+            <h1 class="about-hero__title">
+              Više od 70 godina<br />
+              <em>gradimo vaš dom</em>
+            </h1>
+            <p class="about-hero__desc">
+              ORING 024 doo Subotica je firma specijalizovana za izgradnju montažnih
+              objekata. Kao ovlašćeni zastupnik firme <strong style="color:var(--color-amber-light);">TMK Zavidovići</strong>
+              i sopstveni proizvođač montažnih kuća, donosimo desetlećima proverena
+              rešenja direktno vašoj porodici.
+            </p>
+            <div class="about-hero__badges">
+              <div class="hero-badge">
+                <strong>70+</strong>
+                <span>Godina tradicije</span>
+              </div>
+              <div class="hero-badge">
+                <strong>TMK</strong>
+                <span>Zastupnik</span>
+              </div>
+              <div class="hero-badge">
+                <strong>100%</strong>
+                <span>Sopstveni proizvod</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-hero__image reveal">
+            <img
+              src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=900&q=80&auto=format&fit=crop"
+              alt="Moderna montažna kuća ORING 024"
+              loading="eager"
+              decoding="async"
+            />
+            <div class="about-hero__image-badge">Subotica, Srbija</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Values -->
+    <section class="section" aria-labelledby="values-heading">
+      <div class="container">
+        <div class="section__header">
+          <span class="section-label">Naše vrednosti</span>
+          <h2 class="section-heading" id="values-heading">Šta nas pokreće svaki dan</h2>
+          <p class="lead">Tri stuba na kojima počiva svaki projekat koji realizujemo.</p>
+        </div>
+
+        <div class="values-grid">
+          <article class="value-card reveal">
+            <div class="value-card__number" aria-hidden="true">01</div>
+            <h3 class="value-card__title">Kvalitet bez kompromisa</h3>
+            <p class="value-card__desc">
+              Svaka kuća koju izgradimo prolazi kroz stroge standarde kontrole
+              kvaliteta. Koristimo isključivo atestovane materijale i dokazane
+              sisteme gradnje koji garantuju dugotrajnost i energetsku efikasnost.
+              Naš standard je energetska klasa B ili bolja.
+            </p>
+          </article>
+
+          <article class="value-card reveal reveal-delay-1">
+            <div class="value-card__number" aria-hidden="true">02</div>
+            <h3 class="value-card__title">Transparentnost i poverenje</h3>
+            <p class="value-card__desc">
+              Verujemo u otvorenu komunikaciju. Svaka ponuda je detaljna, jasna i
+              bez skrivenih troškova. Pratimo vas od prvog razgovora do dana
+              useljenja — i posle njega. Vaše poverenje je naša najveća vrednost.
+            </p>
+          </article>
+
+          <article class="value-card reveal reveal-delay-2">
+            <div class="value-card__number" aria-hidden="true">03</div>
+            <h3 class="value-card__title">Porodične vrednosti</h3>
+            <p class="value-card__desc">
+              Gradimo domove u kojima će porodice živeti generacijama. Razumemo
+              šta dom znači — to nije samo konstrukcija, to je prostor gde nastaju
+              uspomene. Zato svaki detalj tretiramo sa pažnjom i odgovornošću.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Timeline / History -->
+    <section class="section section--alt" aria-labelledby="history-heading">
+      <div class="container">
+        <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(var(--space-12),6vw,var(--space-20));align-items:start;">
+
+          <div class="reveal">
+            <span class="section-label" style="display:inline-block;margin-bottom:var(--space-4);">Naša istorija</span>
+            <h2 class="section-heading" id="history-heading">
+              Tradicija koja<br />traje decenijama
+            </h2>
+            <div class="divider" style="margin-block:var(--space-5);"></div>
+            <p style="font-size:var(--fs-base);color:var(--color-gray-500);line-height:var(--lh-loose);margin-bottom:var(--space-6);">
+              Kompanija ORING 024 doo nastavlja dugu tradiciju montažne gradnje
+              koja traje više od 70 godina. Kao zastupnik i partner firme
+              TMK Zavidovići, donosimo proveren sistem gradnje kombinovan sa
+              sopstvenim inovacijama i lokalnom ekspertizom.
+            </p>
+            <p style="font-size:var(--fs-base);color:var(--color-gray-500);line-height:var(--lh-loose);">
+              Svaka kuća koju izgradimo nosi pečat tog dugog iskustva — od
+              projekta do ključa u ruke. Naša reputacija gradi se jednim domom
+              u isto vreme.
+            </p>
+          </div>
+
+          <div class="timeline reveal reveal-delay-1">
+            <div class="timeline-item">
+              <p class="timeline-item__year">Osnivanje tradicije</p>
+              <h3 class="timeline-item__title">Početak montažne gradnje</h3>
+              <p class="timeline-item__desc">
+                Firma TMK Zavidovići utemeljuje sistem montažne gradnje koji
+                će postati osnova za decenije uspešne produkcije visokokvalitetnih
+                montažnih objekata na prostoru bivše Jugoslavije i šire.
+              </p>
+            </div>
+
+            <div class="timeline-item">
+              <p class="timeline-item__year">Razvoj i ekspanzija</p>
+              <h3 class="timeline-item__title">Širenje asortimana i tržišta</h3>
+              <p class="timeline-item__desc">
+                Uvođenje novih modela, unapređenje sistema izolacije i fasadnih
+                rešenja. Montažna gradnja dobija na popularnosti kao brza,
+                isplativa i energetski efikasna alternativa klasičnoj gradnji.
+              </p>
+            </div>
+
+            <div class="timeline-item">
+              <p class="timeline-item__year">Moderno doba</p>
+              <h3 class="timeline-item__title">ORING 024 doo Subotica</h3>
+              <p class="timeline-item__desc">
+                Osnivanje ORING 024 doo kao ovlašćenog zastupnika TMK Zavidovići
+                za region Vojvodine i Srbije. Sopstvena proizvodnja i prilagođena
+                rešenja za lokalno tržište — uz punu podršku decenije dugog znanja.
+              </p>
+            </div>
+
+            <div class="timeline-item">
+              <p class="timeline-item__year">Danas</p>
+              <h3 class="timeline-item__title">Energetska klasa B i budućnost</h3>
+              <p class="timeline-item__desc">
+                Svi modeli dostupni sa energetskim pasošem klase B. Kontinuirano
+                ulaganje u inovacije, nove modele i bolji korisnički doživljaj
+                — jer svaka porodica zaslužuje savršen dom.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Partnership Section -->
+    <section class="partnership section" aria-labelledby="partnership-heading">
+      <div class="container">
+        <div class="partnership__grid">
+
+          <div class="reveal">
+            <span class="partnership__label">Naš partner</span>
+            <h2 class="partnership__title" id="partnership-heading">
+              Zastupnici firme<br />
+              <em>TMK Zavidovići</em>
+            </h2>
+            <p class="partnership__text">
+              TMK Zavidovići je jedna od najstarijih i najcenjenijih kompanija u
+              oblasti montažne gradnje u regionu. Njihov sistem gradnje, koji se
+              usavršavao više od 70 godina, danas predstavlja zlatni standard
+              industrije. Kao njihov ovlašćeni zastupnik, ORING 024 doo donosi
+              taj standard direktno klijentima u Srbiji.
+            </p>
+
+            <div class="partnership__features">
+              <div class="partnership-feat">
+                <div class="partnership-feat__icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                </div>
+                <div class="partnership-feat__text">
+                  <strong>Ovlašćeni zastupnik</strong>
+                  <span>Zvanična distribucija i servis TMK sistema za Srbiju.</span>
+                </div>
+              </div>
+              <div class="partnership-feat">
+                <div class="partnership-feat__icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </div>
+                <div class="partnership-feat__text">
+                  <strong>Atestovani materijali</strong>
+                  <span>Svi elementi nose potrebne ateste i sertifikate.</span>
+                </div>
+              </div>
+              <div class="partnership-feat">
+                <div class="partnership-feat__icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                </div>
+                <div class="partnership-feat__text">
+                  <strong>Garancija i podrška</strong>
+                  <span>Potpuna podrška nakon izgradnje i garantni rok na objekte.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="reveal reveal-delay-1">
+            <div class="partnership__card">
+              <div class="partnership__card-logo">T</div>
+              <h3 class="partnership__card-title">TMK Zavidovići</h3>
+              <p class="partnership__card-sub">Firma za montažnu gradnju — osnivač sistema</p>
+              <p style="font-size:var(--fs-sm);color:rgba(255,255,255,.55);line-height:var(--lh-loose);margin-bottom:var(--space-6);">
+                Decenijama prisutni na tržištu montažnih kuća, TMK Zavidovići su
+                postavili standarde koje industrija i danas prati. Njihova
+                tehnologija i iskustvo stoje iza svakog ORING 024 projekta.
+              </p>
+              <div class="partnership__stat-row">
+                <div class="p-stat">
+                  <strong>70+</strong>
+                  <span>Godina rada</span>
+                </div>
+                <div class="p-stat">
+                  <strong>B</strong>
+                  <span>Energetska klasa</span>
+                </div>
+                <div class="p-stat">
+                  <strong>✓</strong>
+                  <span>Atestovano</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CTA Strip -->
+    <section style="padding-block:clamp(5rem,8vw,8rem);background:var(--gradient-amber);position:relative;overflow:hidden;text-align:center;" aria-labelledby="about-cta-heading">
+      <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px);background-size:30px 30px;" aria-hidden="true"></div>
+      <div class="container" style="position:relative;z-index:1;">
+        <h2 style="font-family:var(--font-display);font-size:clamp(1.75rem,4vw,3rem);font-weight:700;color:#fff;margin-bottom:1rem;letter-spacing:-0.02em;line-height:1.2;" id="about-cta-heading">
+          Spremi za sledeći korak?
+        </h2>
+        <p style="font-size:clamp(1rem,2vw,1.125rem);color:rgba(255,255,255,.85);font-weight:500;margin-bottom:2.5rem;max-width:520px;margin-inline:auto;margin-bottom:2.5rem;">
+          Kontaktirajte ORING 024 doo danas i saznajte sve o tome kako možemo
+          izgraditi dom vaših snova — brzo, kvalitetno i isplativo.
+        </p>
+        <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+          <a class="btn btn--white btn--lg" href="kontakt.html">
+            Kontaktirajte nas
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a class="btn btn--white-outline btn--lg" href="modeli.html">
+            Pogledaj modele
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ════════════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__main">
+
+        <!-- Brand -->
+        <div class="footer__brand">
+          <div class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="14" cy="14" r="11" stroke="currentColor" stroke-width="2.2"/>
+              <text x="14" y="19" text-anchor="middle" fill="currentColor" font-size="11" font-weight="900" font-family="Montserrat, sans-serif">O</text>
+            </svg>
+          </div>
+          <p class="footer__tagline">
+            ORING 024 doo Subotica — Zastupnik firme TMK Zavidovići i sopstveni
+            proizvođač montažnih kuća sa tradicijom dugom preko 70 godina.
+          </p>
+          <div class="footer__social">
+            <a class="social-link" href="https://www.instagram.com/oring024/" target="_blank" rel="noopener noreferrer" aria-label="Instagram profil">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav aria-label="Footer navigacija">
+          <p class="footer__col-title">Prečice</p>
+          <ul class="footer__nav-list" role="list">
+            <li><a class="footer__nav-link" href="index.html">Početna</a></li>
+            <li><a class="footer__nav-link" href="o-nama.html">O Nama</a></li>
+            <li><a class="footer__nav-link" href="modeli.html">Modeli Kuća</a></li>
+            <li><a class="footer__nav-link" href="kontakt.html">Kontakt</a></li>
+          </ul>
+        </nav>
+
+        <!-- Models -->
+        <nav aria-label="Modeli kuća">
+          <p class="footer__col-title">Modeli</p>
+          <ul class="footer__nav-list" role="list">
+            <li><a class="footer__nav-link" href="modeli.html">Ornament 130m²</a></li>
+            <li><a class="footer__nav-link" href="modeli.html">Family 165</a></li>
+            <li><a class="footer__nav-link" href="kontakt.html">Upit za model</a></li>
+            <li><a class="footer__nav-link" href="kontakt.html">Besplatna ponuda</a></li>
+          </ul>
+        </nav>
+
+        <!-- Contact -->
+        <address>
+          <p class="footer__col-title">Kontakt</p>
+          <ul class="footer__contact-list" role="list">
+            <li>
+              <div class="contact-item">
+                <div class="contact-item__icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 1.13h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.72a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/>
+                  </svg>
+                </div>
+                <div class="contact-item__text">
+                  <span class="contact-item__label">Telefon</span>
+                  <a class="contact-item__value" href="tel:+381692424256">+381 69/11-242-56</a>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="contact-item">
+                <div class="contact-item__icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <div class="contact-item__text">
+                  <span class="contact-item__label">Grad</span>
+                  <span class="contact-item__value">Subotica, Srbija</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </address>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer__bottom">
+        <p class="footer__copyright">
+          &copy; 2025 <strong>ORING 024 doo Subotica</strong>. Sva prava zadržana.
+        </p>
+        <div class="footer__partner-badge">
+          <span>Zastupnik: <strong>TMK Zavidovići</strong></span>
+        </div>
+        <nav class="footer__legal" aria-label="Pravne informacije">
+          <a href="#">Politika privatnosti</a>
+          <a href="#">Uslovi korišćenja</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
